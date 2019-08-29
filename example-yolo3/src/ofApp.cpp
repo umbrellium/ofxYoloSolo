@@ -28,17 +28,17 @@ void ofApp::setup()
 	video.initGrabber( 640, 480 );
 	ofSetWindowShape(video.getWidth()*scale,video.getHeight()*scale);
 #else
-	// auto videoFile = "/home/nono/Desktop/videos/test-convert.mp4";
-	auto videoFile = "/home/um/Desktop/videos/MVI_9284_short-2.mp4";
-//    auto videoFile = "/home/um/Desktop/videos/test-convert.mp4";
-//    auto videoFile = "/home/nono/Documents/workspaces/openframeworks/of_v0.10.1_linux64gcc5_release/apps/umbrellium/colas-crossing-cv/bin/data/videos/MVI_9284_short.mp4";
-//    auto videoFile = "/home/nono/Desktop/videos/1-nicole-jaywalk-then-cross-back.avi";
-//    auto videoFile = "/home/nono/Downloads/MVI_9290_short.mp4";
-//    auto videoFile = "/home/nono/Downloads/scrutton_st_02.mp4";
+	auto videoFile = "/home/um/Desktop/videos/short-001.mp4"; //
+	// auto videoFile = "/home/um/Desktop/videos/short-002.mp4"; //
+	// auto videoFile = "/home/um/Desktop/videos/short-003.mp4"; //
+	// auto videoFile = "/home/um/Desktop/videos/short-004.mp4"; //
+	// auto videoFile = "/home/um/Desktop/videos/short-005.mp4"; //
+
+
     player.load(videoFile);
 //    player.setSpeed(.5);
-//	player.setLoopState(OF_LOOP_NORMAL);
-    player.setLoopState(OF_LOOP_NONE);
+	player.setLoopState(OF_LOOP_NORMAL);
+    // player.setLoopState(OF_LOOP_NONE);
 	player.play();
 	ofSetWindowShape(player.getWidth()*scale,player.getHeight()*scale);
 #endif
@@ -95,15 +95,17 @@ void ofApp::draw()
 		for( const auto pair : detections ){
 
 		    const auto d = pair.second;
-				ofNoFill();
-				ofSetColor( ofColor::red );
-				ofDrawRectangle( d.rectPredicted );
-				ofSetColor( ofColor::blue );
-				ofDrawRectangle( d.rect );
-				ofDrawBitmapStringHighlight( ofToString(d.id) + "    " + d.label + ": " + ofToString(d.probability,3), d.rect.x+3, d.rect.y + 18 );
-				glLineWidth( 6 );
-				ofDrawLine(glm::vec2(d.rect.x,d.rect.getBottom()-3), glm::vec2(d.rect.x+d.rect.getWidth()*d.probability,d.rect.getBottom()-3));
-				glLineWidth( 1 );
+				if(d.label == "person"){
+					ofNoFill();
+					ofSetColor( ofColor::red );
+					ofDrawRectangle( d.rectPredicted );
+					ofSetColor( ofColor::blue );
+					ofDrawRectangle( d.rect );
+					ofDrawBitmapStringHighlight( ofToString(d.id) + "    " + d.label + ": " + ofToString(d.probability,3), d.rect.x+3, d.rect.y + 18 );
+					glLineWidth( 6 );
+					ofDrawLine(glm::vec2(d.rect.x,d.rect.getBottom()-3), glm::vec2(d.rect.x+d.rect.getWidth()*d.probability,d.rect.getBottom()-3));
+					glLineWidth( 1 );
+				}
 
             // optionally, you can grab the 1024-length feature vector associated
             // with each detected object
