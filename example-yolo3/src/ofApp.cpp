@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-void ofApp::setup() 
+void ofApp::setup()
 {
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
@@ -14,11 +14,11 @@ void ofApp::setup()
 
 	// std::string cfgfile = ofToDataPath( "cfg/yolo-voc.cfg" );
 	// std::string weightfile = ofToDataPath( "yolo-voc.weights" );
-	// std::string nameslist = ofToDataPath( "cfg/voc.names" );	
+	// std::string nameslist = ofToDataPath( "cfg/voc.names" );
 
-    std::string  nameslist = "data/cfg/coco.names";
-    std::string  cfgfile = "data/cfg/yolov3.cfg";
-    std::string  weightfile = "data/yolov3.weights";
+    std::string  nameslist = "/home/um/Desktop/starlingCV-colas-config/yolo/coco.names";
+    std::string  cfgfile = "/home/um/Desktop/starlingCV-colas-config/yolo/yolov3.cfg";
+    std::string  weightfile = "/home/um/Desktop/starlingCV-colas-config/yolo/yolov3.weights";
 
 
 	yolo.init( cfgfile, weightfile, nameslist );
@@ -28,7 +28,8 @@ void ofApp::setup()
 	video.initGrabber( 640, 480 );
 	ofSetWindowShape(video.getWidth()*scale,video.getHeight()*scale);
 #else
-	auto videoFile = "/home/nono/Desktop/videos/test-convert.mp4";
+	// auto videoFile = "/home/nono/Desktop/videos/test-convert.mp4";
+	auto videoFile = "/home/um/Desktop/videos/MVI_9284_short-2.mp4";
 //    auto videoFile = "/home/um/Desktop/videos/test-convert.mp4";
 //    auto videoFile = "/home/nono/Documents/workspaces/openframeworks/of_v0.10.1_linux64gcc5_release/apps/umbrellium/colas-crossing-cv/bin/data/videos/MVI_9284_short.mp4";
 //    auto videoFile = "/home/nono/Desktop/videos/1-nicole-jaywalk-then-cross-back.avi";
@@ -61,7 +62,7 @@ void ofApp::draw()
     // if a detected object overlaps >maxOverlap with another detected
     // object with a higher confidence, it gets omitted
     float maxOverlap = 0.25;
-    
+
 	ofSetColor( 255 );
 	bool isNewFrame = false;
 	ofPixels pix;
