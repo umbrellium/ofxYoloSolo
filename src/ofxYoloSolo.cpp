@@ -56,7 +56,8 @@ void ofxYoloSolo::update(ofEventArgs & a){
             }else{
                 dectObj.label = "N/A";
             }
-            dectObj.rectPredicted = dectObj.rect = rect;
+            // dectObj.rectPredicted = dectObj.rect = rect;
+            dectObj.rect = rect;
             dectObj.probability = res.prob;
             dectObj.id = res.track_id;
             dectObj.lastDetected = timestamp;
@@ -67,14 +68,24 @@ void ofxYoloSolo::update(ofEventArgs & a){
             detectedObjects.objects[res.track_id] = (dectObj);
         }
         bHasNewData = true;
-    }else {
-        auto result_vec = trackKalman.predict();
-        for(auto res: result_vec){
-            if(detectedObjects.objects.count(res.track_id)){
-                detectedObjects.objects[res.track_id].rectPredicted = ofRectangle(res.x,res.y,res.w,res.h);
-            }
+    }
+    // else {
+    //     auto result_vec = trackKalman.predict();
+    //     for(auto res: result_vec){
+    //         if(detectedObjects.objects.count(res.track_id)){
+    //             detectedObjects.objects[res.track_id].rectPredicted = ofRectangle(res.x,res.y,res.w,res.h);
+    //         }
+    //     }
+    // }
+
+    auto result_vec = trackKalman.predict();
+    for(auto res: result_vec){
+        if(detectedObjects.objects.count(res.track_id)){
+            detectedObjects.objects[res.track_id].rectPredicted = ofRectangle(res.x,res.y,res.w,res.h);
         }
     }
+
+
     std::vector<unsigned int> idsToRemove;
     for(const auto obj: detectedObjects.objects) {
         if(timestamp-obj.second.lastDetected>trackingMSUntilRemove){

@@ -92,18 +92,18 @@ void ofApp::draw()
 		ofNoFill();
 		ofPushMatrix();
 		ofScale(scale,scale,1);
-		for( const auto pair : detections )
-		{
+		for( const auto pair : detections ){
+
 		    const auto d = pair.second;
-			ofNoFill();
-            ofSetColor( ofColor::bisque );
-            ofDrawRectangle( d.rectPredicted );
-            ofSetColor( ofColor::azure );
-            ofDrawRectangle( d.rect );
-			ofDrawBitmapStringHighlight( ofToString(d.id) + "    " + d.label + ": " + ofToString(d.probability,3), d.rect.x+3, d.rect.y + 18 );
-            glLineWidth( 6 );
-			ofDrawLine(glm::vec2(d.rect.x,d.rect.getBottom()-3), glm::vec2(d.rect.x+d.rect.getWidth()*d.probability,d.rect.getBottom()-3));
-            glLineWidth( 1 );
+				ofNoFill();
+				ofSetColor( ofColor::red );
+				ofDrawRectangle( d.rectPredicted );
+				ofSetColor( ofColor::blue );
+				ofDrawRectangle( d.rect );
+				ofDrawBitmapStringHighlight( ofToString(d.id) + "    " + d.label + ": " + ofToString(d.probability,3), d.rect.x+3, d.rect.y + 18 );
+				glLineWidth( 6 );
+				ofDrawLine(glm::vec2(d.rect.x,d.rect.getBottom()-3), glm::vec2(d.rect.x+d.rect.getWidth()*d.probability,d.rect.getBottom()-3));
+				glLineWidth( 1 );
 
             // optionally, you can grab the 1024-length feature vector associated
             // with each detected object
